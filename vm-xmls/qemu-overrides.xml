@@ -1,0 +1,22 @@
+  <qemu:commandline>
+    <!-- Spoofs RAM SMBIOS-->
+    <qemu:arg value="-smbios"/>
+    <qemu:arg value="type=17,loc_pfx=DIMMA2,bank=P0 CHANNEL A,manufacturer=Unknown,serial=Unknown,asset=Not Specified,part=Not Specified,speed=4800"/>
+    <!-- verify using `dmidecode -t 1,2,3` which serials you must set -->
+    <!-- Generic names like Default String do not have to be changed -->
+    <!-- DON'T FORGET THIS IF YOU US SMBIOS MODE HOST! -->
+    <qemu:arg value="-smbios"/>
+    <qemu:arg value="type=1,serial=To be filled by O.E.M."/>  <!-- often just System Serial Number -->
+    <qemu:arg value="-smbios"/>
+    <qemu:arg value="type=2,serial=To be filled by O.E.M."/>  <!-- 15 char long random number -->
+    <qemu:arg value="-smbios"/>
+    <qemu:arg value="type=3,serial=To be filled by O.E.M."/>  <!-- often just Default String -->
+  </qemu:commandline>
+  <!-- ONLY USE THIS WHEN USING VIRTUAL STORAGE (ex: qcow) AND YOU'RE USING AN SSD -->
+  <qemu:override>
+    <qemu:device alias="sata0-0-0">
+      <qemu:frontend>
+        <qemu:property name="rotation_rate" type="unsigned" value="1"/>
+      </qemu:frontend>
+    </qemu:device>
+  </qemu:override>

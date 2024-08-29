@@ -14,7 +14,23 @@ hwinfo
 
 https://angrysysadmins.tech/index.php/2022/07/grassyloki/vfio-tuning-your-windows-gaming-vm-for-optimal-performance/
 
+-huge pages-
+
+For persistent configuration, add the following line to /etc/sysctl.conf:
+vm.nr_hugepages = 8192
+
+
+
 # configure custom qemu builds
 qemu doesn't build with usb support by default when compiling from source (wtf?) so it must be specified. 
 
+-depends on-
+
+libusb-1.0-0 
+
+-run-
+
 ./configure --prefix=/opt/qemu-custom --target-list=x86_64-softmmu --enable-libusb --enable-usb-redir
+
+
+re enable apparmor

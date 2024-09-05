@@ -1,0 +1,136 @@
+<domain type="kvm">
+  <name>win10-SHIT</name>
+  <uuid>4f7f1f9b-bd05-4cc5-aa0d-5c1f0dd3b569</uuid>
+  <metadata>
+    <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
+      <libosinfo:os id="http://microsoft.com/win/10"/>
+    </libosinfo:libosinfo>
+  </metadata>
+  <memory>16777216</memory>
+  <currentMemory>16777216</currentMemory>
+  <vcpu>8</vcpu>
+  <os>
+    <type arch="x86_64" machine="q35">hvm</type>
+    <loader readonly="yes" secure="yes" type="pflash">/usr/local/share/edk2/x64/OVMF_CODE_4M.secboot.fd</loader>
+    <boot dev="hd"/>
+  </os>
+ <features>
+    <acpi/>
+    <apic/>
+    <pae/>
+    <hyperv mode="custom">
+      <relaxed state="off"/>
+      <vapic state="off"/>
+      <spinlocks state="off"/>
+      <vpindex state="off"/>
+      <runtime state="off"/>
+      <synic state="off"/>
+      <stimer state="off"/>
+      <reset state="off"/>
+      <vendor_id state="off"/>
+      <frequencies state="off"/>
+    </hyperv>
+    <kvm>
+      <hidden state="on"/>
+    </kvm>
+    <pmu state="off"/>
+    <ioapic driver="kvm"/>
+    <msrs unknown="fault"/>
+  </features>
+  <cpu mode="host-passthrough" check="none" migratable="on">
+    <topology sockets="1" dies="1" cores="4" threads="2"/>
+    <cache mode="passthrough"/>
+    <feature policy="require" name="topoext"/>
+    <feature policy="require" name="vmx"/>
+    <feature policy="disable" name="hypervisor"/>
+    <feature policy="disable" name="ssbd"/>
+    <feature policy="disable" name="amd-ssbd"/>
+    <feature policy="disable" name="virt-ssbd"/>
+    <feature policy="disable" name="pdpe1gb"/>
+    <feature policy="disable" name="rdtscp"/>
+    <feature policy="disable" name="rdpid"/>
+    <feature policy="require" name="invtsc"/>
+    <feature policy="require" name="pae"/>
+    <feature policy="require" name="x2apic"/>
+    <feature policy="require" name="tsc-deadline"/>
+    <feature policy="require" name="arch-capabilities"/>
+    <feature policy="require" name="rdctl-no"/>
+    <feature policy="require" name="skip-l1dfl-vmentry"/>
+    <feature policy="require" name="mds-no"/>
+    <feature policy="require" name="pschange-mc-no"/>
+    <feature policy="require" name="smep"/>
+    <feature policy="require" name="cmp_legacy"/>
+    <feature policy="require" name="xsaves"/>
+    <feature policy="require" name="perfctr_core"/>
+    <feature policy="require" name="clzero"/>
+  </cpu>
+  <clock offset="localtime">
+    <timer name="rtc" present="no" tickpolicy="catchup"/>
+    <timer name="pit" present="yes" tickpolicy="discard"/>
+    <timer name="hpet" present="yes"/>
+    <timer name="kvmclock" present="no"/>
+    <timer name="hypervclock" present="no"/>
+    <timer name="tsc" present="yes" mode="native"/>
+  </clock>
+  <pm>
+    <suspend-to-mem enabled="yes"/>
+    <suspend-to-disk enabled="yes"/>
+  </pm>
+  <devices>
+    <emulator>/usr/local/bin/qemu-system-x86_64</emulator>
+    <disk type="file" device="disk">
+      <driver name="qemu" type="qcow2" discard="unmap"/>
+      <source file="/var/lib/libvirt/images/win10-SHIT.qcow2"/>
+      <target dev="sda" bus="sata"/>
+    </disk>
+    <disk type="file" device="cdrom">
+      <driver name="qemu" type="raw"/>
+      <source file="/home/spracto/Downloads/Win10_22H2_English_x64v1.iso"/>
+      <target dev="sdb" bus="sata"/>
+      <readonly/>
+    </disk>
+    <controller type="usb" model="qemu-xhci" ports="15"/>
+    <controller type="pci" model="pcie-root"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <interface type="network">
+      <source network="default"/>
+      <mac address="52:54:00:d8:fb:8d"/>
+      <model type="e1000e"/>
+    </interface>
+    <console type="pty"/>
+    <graphics type="vnc" port="-1"/>
+    <video>
+      <model type="vga"/>
+    </video>
+  </devices>
+   <qemu:commandline>
+    <qemu:arg value="-smbios"/>
+    <qemu:arg value="type=17,loc_pfx=DIMMA2,bank=P0 CHANNEL A,manufacturer=Unknown,serial=Unknown,asset=Not Specified,part=Not Specified,speed=4800"/>
+    <qemu:arg value="-smbios"/>
+    <qemu:arg value="type=1,serial=To be filled by O.E.M.,uuid=54419833-b25c-4399-96aa-965d468564ee"/>
+    <qemu:arg value="-smbios"/>
+    <qemu:arg value="type=2,serial=To be filled by O.E.M."/>
+    <qemu:arg value="-smbios"/>
+    <qemu:arg value="type=3,serial=To be filled by O.E.M."/>
+  </qemu:commandline>
+  <qemu:override>
+    <qemu:device alias="sata0-0-0">
+      <qemu:frontend>
+        <qemu:property name="rotation_rate" type="unsigned" value="1"/>
+      </qemu:frontend>
+    </qemu:device>
+  </qemu:override>
+</domain>

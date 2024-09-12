@@ -4,11 +4,19 @@ https://www.youtube.com/watch?v=g--fe8_kEcw
 
 https://www.youtube.com/playlist?list=PLG7vUqRxMOG6gsPXohhFht3UJbcCxYgcL
 
+https://www.youtube.com/watch?v=n463QJ4cjsU --building a kernel driver. Useful info in here about setting up a system for kernel development. 
+
 # hardware explorers
 
 cpuid
 
 hwinfo
+
+# vm detection tools
+
+VMaware
+paranoid fish
+msr-cmd
 
 # optimizing
 
@@ -42,3 +50,12 @@ apparently libvirt runs vms as root, and will route audio to the root user pulse
     <qemu:env name="QEMU_PA_SERVER" value="/run/user/1000/pulse/native"/>
 
 but it didn't work for me. 
+
+
+# Not totally VFIO related but....
+
+I set up my windows guest with vmware player to run another VM inside my VM (nested virtualization). I did this so I could have a VM to run my first kernel driver in since I needed a windows "host" (my level 1 windows guest) to write my code and a windows guest (my level 2 VM) to test the kernel driver.
+
+What I didn't know at the time was that when I enabled debug in my system configuration (msconfig.exe in the boot tab) that it would cause VMProtect to go completely nuclear on my system if I tried to start it. 
+
+VMProtect protects itself by crashing your system as an anti debug measure if you have debug enabled in msconfig. 
